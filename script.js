@@ -74,7 +74,19 @@ function generateMusic(details) {
 }
 
 function showMusic(music) {
-    
+    const elem = document.getElementById("display-music");
+    elem.innerHTML = `
+        <div class="div-music-staves">
+            <div class="div-music-staves-stave"></div>
+            <div class="div-music-staves-stave"></div>
+            <div class="div-music-staves-stave"></div>
+            <div class="div-music-staves-stave"></div>
+            <div class="div-music-staves-stave"></div>
+        </div>
+        <div class="div-music-main">
+            <div class="div-music-main-clef"></div>
+        </div>
+    `
 }
 
 function generateAndShowMusic(details) {
