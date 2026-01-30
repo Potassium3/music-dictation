@@ -127,6 +127,11 @@ h2 {
     flex-grow: 4;
 }
 
+.div-music-main-note-cont {
+    flex-grow: 1;
+    background-color: #ffffff44;
+}
+
 .div-music-main-note-notehead {
     transform: translateY(1px); /* All transforms are optical. */
     width: 12px;

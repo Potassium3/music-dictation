@@ -73,11 +73,14 @@ function generateMusic(details) {
     }
 }
 
-function collapseDepth(arr) {
+function collapseUpToDepth(arr, dep) {
+    if (dep == 0) {
+        return arr;
+    }
     let newarr = [];
     for (let item of arr) {
         if (item[0] != undefined) {
-            let subitems = collapseDepth(item);
+            let subitems = collapseUpToDepth(item, dep-1);
             for (let subitem of subitems) {
                 newarr.push(subitem);
             }
@@ -91,31 +94,39 @@ function collapseDepth(arr) {
 function showMusic(music) {
     const elem = document.getElementById("display-music");
     let notes = "";
-    let collapsedBars = collapseDepth(music.bars);
+    let collapsedBars = collapseUpToDepth(music.bars, 2);
 
     let totalDuration = 0;
     for (let note of collapsedBars) {
+
         if (note == 1) {
             notes += `
             <div class="div-music-main-note div-music-main-note-crotchet">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
                 <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
             </div>`
+            totalDuration += 1;
         } else if (note == 2) {
             notes += `
             <div class="div-music-main-note div-music-main-note-minim">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:40px;"></div>
                 <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
             </div>`
+            totalDuration += 2;
         } else if (note == 4) {
             notes += `
             <div class="div-music-main-note div-music-main-note-semibreve">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:40px;"></div>
             </div>`
+            totalDuration += 4;
+        } else {
+            notes += `
+            <div class="div-music-main-note div-music-main-note-cont"></div>`
+            totalDuration += 1;
         }
-        console.log(totalDuration);
-        totalDuration += note;
-        if (totalDuration%4 == 0) {
+
+        console.log(totalDuration)
+        if (totalDuration%4 == 0 && totalDuration!=0) {
             notes += `
             <div class="div-music-main-barline">
                 <div class="div-music-main-barline-single"></div>
