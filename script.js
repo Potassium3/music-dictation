@@ -96,13 +96,12 @@ function showMusic(music) {
                 <div class="div-music-main-note-notehead"></div>
                 <div class="div-music-main-note-notestemdown"></div>
             </div>
-            <div class="div-music-main-cursor">
-                <div class="div-music-main-cursor-single"></div>
-            </div>
+            <div class="div-music-main-cursor"></div>
             <div class="div-music-main-end">
                 <div class="div-music-main-end-double"></div>
             </div>
         </div>
+        ${JSON.stringify(music)}
     `
 }
 

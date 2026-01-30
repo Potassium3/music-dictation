@@ -38,11 +38,13 @@ h2 {
 }
 
 .div-music {
-    width: 500px;
-    height: 100px;
+    width: 350px;
+    height: 105px;
     position: relative;
     margin: auto;
     overflow: hidden;
+    border: 2px solid var(--lightblue);
+    padding: 8px;
 }
 
 .div-music-staves {
@@ -116,9 +118,9 @@ h2 {
 }
 
 .div-music-main-note-notehead {
-    transform: translateY(1.5px); /* All transforms are optical. */
+    transform: translateY(1px); /* All transforms are optical. */
     width: 12px;
-    height: 8px;
+    height: 9px;
     background-color: var(--textwhite);
     border-radius: 100%;
     position: absolute;
@@ -126,7 +128,7 @@ h2 {
 }
 
 .div-music-main-note-notestemdown {
-    transform: translateY(5.5px); /* All transforms are optical. */
+    transform: translateY(5px); /* All transforms are optical. */
     width: 12px;
     height: 38px;
     border-left: 2px solid var(--textwhite);
@@ -135,14 +137,7 @@ h2 {
 }
 
 .div-music-main-cursor {
-    padding-bottom: 20px;
-    padding-top: 15px;
     width: 2px;
     height: 100%;
-}
-
-.div-music-main-cursor-single {
-    border-left: 2px solid var(--textwhite);
-    width: 2px;
-    height: 100%;
+    background-color: var(--textyellow)
 }
