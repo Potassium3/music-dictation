@@ -73,8 +73,55 @@ function generateMusic(details) {
     }
 }
 
+function collapseDepth(arr) {
+    let newarr = [];
+    for (let item of arr) {
+        if (item[0] != undefined) {
+            let subitems = collapseDepth(item);
+            for (let subitem of subitems) {
+                newarr.push(subitem);
+            }
+        } else {
+            newarr.push(item);
+        }
+    }
+    return newarr;
+}
+
 function showMusic(music) {
     const elem = document.getElementById("display-music");
+    let notes = "";
+    let collapsedBars = collapseDepth(music.bars);
+
+    let totalDuration = 0;
+    for (let note of collapsedBars) {
+        if (note == 1) {
+            notes += `
+            <div class="div-music-main-note div-music-main-note-crotchet">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
+                <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+            </div>`
+        } else if (note == 2) {
+            notes += `
+            <div class="div-music-main-note div-music-main-note-minim">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:40px;"></div>
+                <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+            </div>`
+        } else if (note == 4) {
+            notes += `
+            <div class="div-music-main-note div-music-main-note-semibreve">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:40px;"></div>
+            </div>`
+        }
+        console.log(totalDuration);
+        totalDuration += note;
+        if (totalDuration%4 == 0) {
+            notes += `
+            <div class="div-music-main-barline">
+                <div class="div-music-main-barline-single"></div>
+            </div>`
+        }
+    }
     elem.innerHTML = `
         <div class="div-music-staves">
             <div class="div-music-staves-stave"></div>
@@ -85,23 +132,12 @@ function showMusic(music) {
         </div>
         <div class="div-music-main">
             <div class="div-music-main-clef"></div>
-            <div class="div-music-main-note">
-                <div class="div-music-main-note-notehead"></div>
-                <div class="div-music-main-note-notestemdown"></div>
-            </div>
-            <div class="div-music-main-barline">
-                <div class="div-music-main-barline-single"></div>
-            </div>
-            <div class="div-music-main-note">
-                <div class="div-music-main-note-notehead"></div>
-                <div class="div-music-main-note-notestemdown"></div>
-            </div>
+            ${notes}
             <div class="div-music-main-cursor"></div>
             <div class="div-music-main-end">
                 <div class="div-music-main-end-double"></div>
             </div>
         </div>
-        ${JSON.stringify(music)}
     `
 }
 

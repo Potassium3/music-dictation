@@ -39,12 +39,10 @@ h2 {
 
 .div-music {
     width: 350px;
-    height: 105px;
+    height: 100px;
     position: relative;
     margin: auto;
     overflow: hidden;
-    border: 2px solid var(--lightblue);
-    padding: 8px;
 }
 
 .div-music-staves {
@@ -117,14 +115,40 @@ h2 {
     position: relative;
 }
 
+.div-music-main-note-crotchet {
+    flex-grow: 1;
+}
+
+.div-music-main-note-minim {
+    flex-grow: 2;
+}
+
+.div-music-main-note-semibreve {
+    flex-grow: 4;
+}
+
 .div-music-main-note-notehead {
     transform: translateY(1px); /* All transforms are optical. */
     width: 12px;
     height: 9px;
-    background-color: var(--textwhite);
     border-radius: 100%;
     position: absolute;
     top: 25px; /* JS */
+}
+
+.div-music-main-note-notehead-crotchet {
+    background-color: var(--textwhite);
+    border: none;
+}
+
+.div-music-main-note-notehead-minim {
+    background-color: transparent;
+    border: 2px solid var(--textwhite);
+}
+
+.div-music-main-note-notehead-semibreve {
+    background-color: transparent;
+    border: 2px solid var(--textwhite);
 }
 
 .div-music-main-note-notestemdown {
