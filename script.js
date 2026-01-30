@@ -85,6 +85,23 @@ function showMusic(music) {
         </div>
         <div class="div-music-main">
             <div class="div-music-main-clef"></div>
+            <div class="div-music-main-note">
+                <div class="div-music-main-note-notehead"></div>
+                <div class="div-music-main-note-notestemdown"></div>
+            </div>
+            <div class="div-music-main-barline">
+                <div class="div-music-main-barline-single"></div>
+            </div>
+            <div class="div-music-main-note">
+                <div class="div-music-main-note-notehead"></div>
+                <div class="div-music-main-note-notestemdown"></div>
+            </div>
+            <div class="div-music-main-cursor">
+                <div class="div-music-main-cursor-single"></div>
+            </div>
+            <div class="div-music-main-end">
+                <div class="div-music-main-end-double"></div>
+            </div>
         </div>
     `
 }

@@ -40,9 +40,9 @@ h2 {
 .div-music {
     width: 500px;
     height: 100px;
-    background-color: var(--lightblue);
     position: relative;
     margin: auto;
+    overflow: hidden;
 }
 
 .div-music-staves {
@@ -71,8 +71,10 @@ h2 {
     height: 100%;
     display: flex;
     flex-direction: row;
+    gap: 10px;
     padding-top: 10px;
-    padding-bottom: 15px
+    padding-bottom: 15px;
+    justify-content: space-between;
 }
 
 .div-music-main-clef {
@@ -80,4 +82,67 @@ h2 {
     filter: invert(1);
     aspect-ratio: 0.4;
     transform: translateY(-2px);
+}
+
+.div-music-main-end {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    width: 6px;
+    height: 100%;
+}
+
+.div-music-main-end-double {
+    border-right: 6px double var(--textwhite);
+    width: 6px;
+    height: 100%;
+}
+
+.div-music-main-barline {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    width: 2px;
+    height: 100%;
+}
+
+.div-music-main-barline-single {
+    border-left: 2px solid var(--textwhite);
+    width: 2px;
+    height: 100%;
+}
+
+.div-music-main-note {
+    width: 12px;
+    position: relative;
+}
+
+.div-music-main-note-notehead {
+    transform: translateY(1.5px); /* All transforms are optical. */
+    width: 12px;
+    height: 8px;
+    background-color: var(--textwhite);
+    border-radius: 100%;
+    position: absolute;
+    top: 25px; /* JS */
+}
+
+.div-music-main-note-notestemdown {
+    transform: translateY(5.5px); /* All transforms are optical. */
+    width: 12px;
+    height: 38px;
+    border-left: 2px solid var(--textwhite);
+    position: absolute;
+    top: 25px; /* JS */
+}
+
+.div-music-main-cursor {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    width: 2px;
+    height: 100%;
+}
+
+.div-music-main-cursor-single {
+    border-left: 2px solid var(--textwhite);
+    width: 2px;
+    height: 100%;
 }
