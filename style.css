@@ -38,8 +38,9 @@ h2 {
 }
 
 .div-music {
-    width: 350px;
+    width: 500px;
     height: 100px;
+    max-width: calc(100% - 40px);
     position: relative;
     margin: auto;
     overflow: hidden;
@@ -87,13 +88,14 @@ h2 {
 .div-music-main-end {
     padding-bottom: 20px;
     padding-top: 15px;
-    width: 6px;
+    width: 8px;
     height: 100%;
 }
 
 .div-music-main-end-double {
-    border-right: 6px double var(--textwhite);
-    width: 6px;
+    border-right: 4px solid var(--textwhite);
+    border-left: 2px solid var(--textwhite);
+    width: 8px;
     height: 100%;
 }
 
@@ -129,7 +131,6 @@ h2 {
 
 .div-music-main-note-cont {
     flex-grow: 1;
-    background-color: #ffffff44;
 }
 
 .div-music-main-note-notehead {
@@ -156,6 +157,11 @@ h2 {
     border: 2px solid var(--textwhite);
 }
 
+.div-music-main-note-notehead-subcrotchet {
+    background-color: var(--textwhite);
+    border: none;
+}
+
 .div-music-main-note-notestemdown {
     transform: translateY(5px); /* All transforms are optical. */
     width: 12px;
@@ -163,6 +169,23 @@ h2 {
     border-left: 2px solid var(--textwhite);
     position: absolute;
     top: 25px; /* JS */
+}
+
+.div-music-main-note-subcrotchetbeam {
+    transform: translateY(5px); /* All transforms are optical. */
+    width: calc(100% - 12px);
+    height: 38px;
+    border-bottom: 5px solid var(--textwhite);
+    position: absolute;
+    top: 25px; /* JS */
+}
+
+.div-music-main-note-subcrotchetcont {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .div-music-main-cursor {

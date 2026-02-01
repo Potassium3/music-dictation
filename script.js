@@ -91,6 +91,41 @@ function collapseUpToDepth(arr, dep) {
     return newarr;
 }
 
+function crotchetExpand(arr) {
+    if (arr[0] == undefined) {
+        return `
+        <div class="div-music-main-note div-music-main-note-subcrotchet">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:40px;"></div>
+            <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+        </div>
+        `
+    } else {
+        let subCrotchetText = ""
+        let wrap = true
+        for (let item of arr) {
+            if (item[0] != undefined) {
+                subCrotchetText += crotchetExpand(item)
+            } else {
+                subCrotchetText += `
+                <div class="div-music-main-note div-music-main-note-subcrotchet">
+                    <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:40px;"></div>
+                    <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+                </div>`
+                wrap = false
+            }
+        }
+        if (wrap) {
+            return `
+            <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
+                ${subCrotchetText}
+                <div class="div-music-main-note-subcrotchetbeam" style="top:40px;"></div>
+            </div>`
+        } else {
+            return subCrotchetText
+        }
+    }
+}
+
 function showMusic(music) {
     const elem = document.getElementById("display-music");
     let notes = "";
@@ -121,12 +156,14 @@ function showMusic(music) {
             totalDuration += 4;
         } else {
             notes += `
-            <div class="div-music-main-note div-music-main-note-cont"></div>`
+            <div class="div-music-main-note div-music-main-note-cont">
+                ${crotchetExpand(note)}
+            </div>`
             totalDuration += 1;
         }
 
         console.log(totalDuration)
-        if (totalDuration%4 == 0 && totalDuration!=0) {
+        if (totalDuration%music.metre[0] == 0 && totalDuration!=0) {
             notes += `
             <div class="div-music-main-barline">
                 <div class="div-music-main-barline-single"></div>
@@ -154,12 +191,12 @@ function showMusic(music) {
 
 function generateAndShowMusic(details) {
     let music = generateMusic(details);
-    showMusic({'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
+    showMusic(music);//{'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
 }
 
 let detailsForMusic = {
-    depth: 2, // 1 = crotchet+minim, 2 = quaver, 3 = semi
-    metre: [4, 4, 2, 0], // Time sig, bars, anacrusis duration
+    depth: 3, // 1 = crotchet+minim, 2 = quaver, 3 = semi
+    metre: [2, 4, 2, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
