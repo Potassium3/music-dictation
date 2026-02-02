@@ -58,10 +58,10 @@ function generateMusic(details) {
     let barDurations;
     barDurations = [];
     if (details.metre[3] != 0) {
-        barDurations.push(details.metre[3])
+        barDurations.push(details.metre[3]/(details.metre[1]-3))
     }
     for (let i=0; i<details.metre[2]; i++) {
-        barDurations.push(details.metre[0]);
+        barDurations.push(details.metre[0]/(details.metre[1]-3));
     }
     let barsToReturn = []
     for (let bar of barDurations) {
@@ -130,6 +130,7 @@ function showMusic(music) {
     const elem = document.getElementById("display-music");
     let notes = "";
     let collapsedBars = collapseUpToDepth(music.bars, 2);
+    let barDuration = music.metre[0]/(music.metre[1]-3);
 
     let totalDuration = 0;
     for (let note of collapsedBars) {
@@ -196,7 +197,7 @@ function generateAndShowMusic(details) {
 
 let detailsForMusic = {
     depth: 3, // 1 = crotchet+minim, 2 = quaver, 3 = semi
-    metre: [2, 4, 2, 0], // Time sig, bars, anacrusis duration
+    metre: [3, 4, 2, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
