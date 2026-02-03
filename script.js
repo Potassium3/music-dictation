@@ -164,7 +164,7 @@ function showMusic(music) {
         }
 
         console.log(totalDuration)
-        if (totalDuration%music.metre[0] == 0 && totalDuration!=0) {
+        if (totalDuration%music.metre[0] == music.metre[3] && totalDuration!=0 && totalDuration!=music.metre[0]/(music.metre[1]-3)*music.metre[2]) {
             notes += `
             <div class="div-music-main-barline">
                 <div class="div-music-main-barline-single"></div>
@@ -196,11 +196,12 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    depth: 3, // 1 = crotchet+minim, 2 = quaver, 3 = semi
-    metre: [3, 4, 2, 0], // Time sig, bars, anacrusis duration
+    depth: 4, // 1 = crotchet+minim, 2 = quaver, 3 = semi
+    metre: [2, 4, 2, 1], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
     triplets: false,
 }
+
 generateAndShowMusic(detailsForMusic);
