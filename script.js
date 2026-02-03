@@ -40,6 +40,7 @@ Music:
 */
 
 function recursiveGenerate(details, duration, depth=0) {
+    console.log(duration);
     let re = [0, 0]
     let split = Math.random() > 0.5 ? true : false
     if (depth <= 2 && split) {
@@ -63,6 +64,7 @@ function generateMusic(details) {
     for (let i=0; i<details.metre[2]; i++) {
         barDurations.push(details.metre[0]/(details.metre[1]-3));
     }
+    console.log(barDurations)
     let barsToReturn = []
     for (let bar of barDurations) {
         barsToReturn.push(recursiveGenerate(details, duration=bar));
@@ -163,7 +165,6 @@ function showMusic(music) {
             totalDuration += 1;
         }
 
-        console.log(totalDuration)
         if (totalDuration%music.metre[0] == music.metre[3] && totalDuration!=0 && totalDuration!=music.metre[0]/(music.metre[1]-3)*music.metre[2]) {
             notes += `
             <div class="div-music-main-barline">
