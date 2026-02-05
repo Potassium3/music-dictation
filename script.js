@@ -40,10 +40,9 @@ Music:
 */
 
 function recursiveGenerate(details, duration, depth=0) {
-    console.log(duration);
     let re = [0, 0]
-    let split = Math.random() > 0.5 ? true : false
-    if (depth <= 2 && split) {
+    let split = Math.random() > 0.5 ? true : false // Random true/false
+    if (depth <= 5 && split && duration >= 0.5) {
         let duration1 = duration/2;
         let duration2 = duration/2;
         re[0] = recursiveGenerate(details, duration1, depth+1);
@@ -64,11 +63,11 @@ function generateMusic(details) {
     for (let i=0; i<details.metre[2]; i++) {
         barDurations.push(details.metre[0]/(details.metre[1]-3));
     }
-    console.log(barDurations)
     let barsToReturn = []
     for (let bar of barDurations) {
         barsToReturn.push(recursiveGenerate(details, duration=bar));
     }
+    console.log("BARS: "+barDurations)
     return {
         metre: details.metre,
         bars: barsToReturn,
@@ -131,9 +130,9 @@ function crotchetExpand(arr) {
 function showMusic(music) {
     const elem = document.getElementById("display-music");
     let notes = "";
-    let collapsedBars = collapseUpToDepth(music.bars, 2);
+    let collapsedBars = collapseUpToDepth(music.bars, 1);
     let barDuration = music.metre[0]/(music.metre[1]-3);
-
+    // THE ERROR IS HERE!!!!!
     let totalDuration = 0;
     for (let note of collapsedBars) {
 
@@ -158,6 +157,7 @@ function showMusic(music) {
             </div>`
             totalDuration += 4;
         } else {
+            console.log("QRAVER")
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">
                 ${crotchetExpand(note)}
@@ -193,6 +193,7 @@ function showMusic(music) {
 
 function generateAndShowMusic(details) {
     let music = generateMusic(details);
+    console.log(music);
     showMusic(music);//{'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
 }
 
