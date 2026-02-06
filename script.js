@@ -127,10 +127,10 @@ function crotchetExpand(arr) {
     }
 }
 
-function showMusic(music) {
+function showMusic(music, depth) {
     const elem = document.getElementById("display-music");
     let notes = "";
-    let collapsedBars = collapseUpToDepth(music.bars, 1);
+    let collapsedBars = collapseUpToDepth(music.bars, depth);
     let barDuration = music.metre[0]/(music.metre[1]-3);
     // THE ERROR IS HERE!!!!!
     let totalDuration = 0;
@@ -157,7 +157,6 @@ function showMusic(music) {
             </div>`
             totalDuration += 4;
         } else {
-            console.log("QRAVER")
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">
                 ${crotchetExpand(note)}
@@ -194,12 +193,12 @@ function showMusic(music) {
 function generateAndShowMusic(details) {
     let music = generateMusic(details);
     console.log(music);
-    showMusic(music);//{'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
+    showMusic(music, details.depth);//{'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
 }
 
 let detailsForMusic = {
-    depth: 4, // 1 = crotchet+minim, 2 = quaver, 3 = semi
-    metre: [2, 4, 2, 1], // Time sig, bars, anacrusis duration
+    depth: 2, // 1 = crotchet+minim, 2 = quaver, 3 = semi
+    metre: [4, 4, 2, 1], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
