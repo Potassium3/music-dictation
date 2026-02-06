@@ -3,7 +3,7 @@
 }
 
 :root {
-    --darkblue: #111155;
+    --darkblue: #080822;
     --lightblue: #2222aa;
     --textwhite: #ffffff;
     --textyellow: #ffff44;
@@ -169,6 +169,16 @@ h2 {
     border-left: 2px solid var(--textwhite);
     position: absolute;
     top: 25px; /* JS */
+}
+
+.div-music-main-note-dot {
+    transform: translateY(1px) translateX(15px); /* All transforms are optical. */
+    width: 3px;
+    height: 3px;
+    border-radius: 100%;
+    position: absolute;
+    top: 25px; /* JS */
+    background-color: white;
 }
 
 .div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeam {

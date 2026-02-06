@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Dictation</title>
+    <title>Musimania</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <script>
+        function openFullScreen() {
+            let elem = document.body;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+    </script>
     <header>
-        <h1>Rhythm Dictation</h1>
+        <h1>Musimania</h1>
     </header>
     <main>
-        <h2 id="display-title">Title goes here</h2>
+        <h2 id="display-title">Music generator by Miles</h2>
         <div id="display-music" class="div-music"></div>
         <button onclick="generateAndShowMusic(detailsForMusic);">Generate</button>
+        <button onclick="openFullScreen();">Full Screen</button>
     </main>
 </body>
 <script src="script.js"></script>
