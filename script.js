@@ -137,6 +137,7 @@ function showMusic(music, depth) {
     for (let note of collapsedBars) {
 
         if (note == 1) {
+            console.log("C")
             notes += `
             <div class="div-music-main-note div-music-main-note-crotchet">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
@@ -144,6 +145,7 @@ function showMusic(music, depth) {
             </div>`
             totalDuration += 1;
         } else if (note == 2) {
+            console.log("M")
             notes += `
             <div class="div-music-main-note div-music-main-note-minim">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:40px;"></div>
@@ -151,12 +153,14 @@ function showMusic(music, depth) {
             </div>`
             totalDuration += 2;
         } else if (note == 4) {
+            console.log("S")
             notes += `
             <div class="div-music-main-note div-music-main-note-semibreve">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:40px;"></div>
             </div>`
             totalDuration += 4;
         } else {
+            console.log("SC")
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">
                 ${crotchetExpand(note)}
@@ -198,7 +202,7 @@ function generateAndShowMusic(details) {
 
 let detailsForMusic = {
     depth: 2, // 1 = crotchet+minim, 2 = quaver, 3 = semi
-    metre: [4, 4, 2, 1], // Time sig, bars, anacrusis duration
+    metre: [2, 4, 2, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
