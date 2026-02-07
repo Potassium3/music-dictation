@@ -109,6 +109,17 @@ function generateMusic(details) {
     }
 }
 
+function getNoteHTML(duration, pitch=7, articulation=0) {
+    if (duration == 1) {
+        return `
+        <div class="div-music-main-note div-music-main-note-crotchet">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
+            <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+        </div>
+        `
+    }
+}
+
 function depthSum(arr) {
     let total = 0;
     for (let item of arr) {
@@ -251,7 +262,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [4, 4, 2, 1], // Time sig, bars, anacrusis duration
+    metre: [3, 4, 5, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
