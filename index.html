@@ -23,10 +23,24 @@
         <h1>Musimania</h1>
     </header>
     <main>
-        <h2 id="display-title">Music generator by Miles</h2>
+        <h2 id="display-title">Music generator</h2>
         <div id="display-music" class="div-music"></div>
-        <button onclick="generateAndShowMusic(detailsForMusic);">Generate</button>
-        <button onclick="openFullScreen();">Full Screen</button>
+
+        <div id="display-keyboard" class="div-keyboard">
+            <button onclick="generateAndShowMusic(detailsForMusic);">Generate</button>
+            <button onclick="openFullScreen();">Full Screen</button>
+            <button>
+                <div class="icon-semibreve-head"></div>
+            </button>
+            <button>
+                <div class="icon-minim-head"></div>
+                <div class="icon-stem"></div>
+            </button>
+            <button>
+                <div class="icon-crotchet-head"></div>
+                <div class="icon-stem"></div>
+            </button>
+        </div>
     </main>
 </body>
 <script src="script.js"></script>

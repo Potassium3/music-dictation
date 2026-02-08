@@ -262,7 +262,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [3, 4, 5, 0], // Time sig, bars, anacrusis duration
+    metre: [4, 4, 4, 1], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,

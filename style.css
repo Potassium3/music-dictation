@@ -4,7 +4,7 @@
 
 :root {
     --darkblue: #080822;
-    --lightblue: #2222aa;
+    --lightblue: #222288;
     --textwhite: #ffffff;
     --textyellow: #ffff44;
 }
@@ -36,6 +36,8 @@ h1, h2 {
 h2 {
     color: var(--textyellow);
 }
+
+/* Music */
 
 .div-music {
     width: 800px;
@@ -221,8 +223,64 @@ h2 {
     min-width: 2px;
 }
 
+/* Button */
+
+.div-keyboard {
+    display: flex;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    gap: 10px;
+}
+
 button {
-    width: 30px;
-    height: 30px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: none;
     background-color: var(--lightblue);
+    border-radius: 10px;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    color: var(--textwhite)
+}
+
+button:hover {
+    --textwhite: var(--textyellow);
+}
+
+.icon-semibreve-head,
+.icon-minim-head {
+    position: absolute;
+    top: 15.5px;
+    left: 14px;
+    width: 12px;
+    height: 9px;
+    background-color: transparent;
+    border: 2px solid var(--textwhite);
+    border-radius: 100%;
+}
+
+.icon-crotchet-head {
+    position: absolute;
+    top: 15.5px;
+    left: 14px;
+    width: 12px;
+    height: 9px;
+    background-color: var(--textwhite);
+    border: none;
+    border-radius: 100%;
+}
+
+.icon-stem {
+    position: absolute;
+    top: 0px;
+    left: 14px;
+    width: 12px;
+    height: 20px;
+    background-color: transparent;
+    border-right: 2px solid var(--textwhite);
 }
