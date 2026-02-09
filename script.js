@@ -142,10 +142,15 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
             <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
         </div>`
     } else {
-        return `
+        /*return `
         <div class="div-music-main-note div-music-main-note-subcrotchet">
             <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
             <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+        </div>`*/
+        return `
+        <div class="div-music-main-note div-music-main-note-subcrotchet">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
         </div>`
     }
 }
@@ -271,7 +276,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [3, 4, 4, 0], // Time sig, bars, anacrusis duration
+    metre: [4, 4, 4, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
@@ -280,4 +285,17 @@ let detailsForMusic = {
 
 generateAndShowMusic(detailsForMusic);
 
-let note = new Audio("sounds/a.wav");
+let notes = [
+    new Audio("sounds/af.wav"),
+    new Audio("sounds/a.wav"),
+    new Audio("sounds/bf.wav"),
+    new Audio("sounds/b.wav"),
+    new Audio("sounds/c.wav"),
+    new Audio("sounds/df.wav"),
+    new Audio("sounds/d.wav"),
+    new Audio("sounds/ef.wav"),
+    new Audio("sounds/e.wav"),
+    new Audio("sounds/f.wav"),
+    new Audio("sounds/gf.wav"),
+    new Audio("sounds/g.wav"),
+];
