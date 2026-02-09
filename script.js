@@ -252,6 +252,10 @@ function showMusic(music) {
         </div>
         <div class="div-music-main">
             <div class="div-music-main-clef"></div>
+            <div class="div-music-main-time">
+                <div>${music.metre[0]}</div>
+                <div>${music.metre[1]}</div>
+            </div>
             ${notes}
             <div class="div-music-main-cursor"></div>
             <div class="div-music-main-end">
@@ -267,7 +271,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [3, 4, 16, 0], // Time sig, bars, anacrusis duration
+    metre: [3, 4, 4, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,

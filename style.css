@@ -90,6 +90,23 @@ h2 {
     transform: translateY(-2px);
 }
 
+.div-music-main-time {
+    color: var(--textwhite);
+    padding-top: 15px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Times New Roman', serif;
+    font-size: 18pt;
+    user-select: none;
+}
+
+.div-music-main-time>* {
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+}
+
 .div-music-main-end {
     padding-bottom: 20px;
     padding-top: 15px;
@@ -143,7 +160,7 @@ h2 {
 }
 
 .div-music-main-note-notehead {
-    transform: translateY(1.5px); /* All transforms are optical. */
+    transform: translateY(1px); /* All transforms are optical. */
     width: 12px;
     height: 9px;
     border-radius: 100%;
