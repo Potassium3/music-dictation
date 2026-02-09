@@ -275,3 +275,5 @@ let detailsForMusic = {
 }
 
 generateAndShowMusic(detailsForMusic);
+
+let note = new Audio("sounds/a.wav");
