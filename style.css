@@ -216,22 +216,40 @@ h2 {
     background-color: white;
 }
 
-.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeam {
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
     transform: translateY(5.5px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
     border-bottom: 5px solid var(--textwhite);
     position: absolute;
-    top: 25px; /* JS */
+    top: 30px; /* JS */
 }
 
-.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeam {
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
     transform: translateY(-1px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
     border-bottom: 5px solid var(--textwhite);
     position: absolute;
-    top: 25px; /* JS */
+    top: 30px; /* JS */
+}
+
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
+    transform: translateY(-1px) translateX(10px); /* All transforms are optical. */
+    width: calc(100% - 12px);
+    height: 38px;
+    border-bottom: 5px solid var(--textwhite);
+    position: absolute;
+    top: -35px; /* JS */
+}
+
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
+    transform: translateY(5.5px) translateX(10px); /* All transforms are optical. */
+    width: calc(100% - 12px);
+    height: 38px;
+    border-bottom: 5px solid var(--textwhite);
+    position: absolute;
+    top: -35px; /* JS */
 }
 
 .div-music-main-note-subcrotchetcont {

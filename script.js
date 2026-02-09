@@ -199,7 +199,7 @@ function crotchetExpand(arr) {
             return `
             <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
                 ${subCrotchetText}
-                <div class="div-music-main-note-subcrotchetbeam" style="top:30px;"></div>
+                <div class="div-music-main-note-subcrotchetbeamup"></div>
             </div>`
         } else {
             return subCrotchetText
