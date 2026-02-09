@@ -109,14 +109,44 @@ function generateMusic(details) {
     }
 }
 
-function getNoteHTML(duration, pitch=7, articulation=0) {
+function getNoteHTML(duration, pitch=8, articulation=0) {
+    pitch = Math.floor(Math.random()*6+5);
+
+    let top = pitch*-5+65;
+    let stemdown = pitch >= 7;
+    let stemtext = stemdown ? "down" : "up";
+
     if (duration == 1) {
         return `
         <div class="div-music-main-note div-music-main-note-crotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
-            <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
         </div>
         `
+    } else if (duration == 2) {
+        return `
+        <div class="div-music-main-note div-music-main-note-minim">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
+        </div>`
+    } else if (duration == 3) {
+        return `
+        <div class="div-music-main-note div-music-main-note-minim">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
+            <div class="div-music-main-note-dot" style="top:${top}px;"></div>
+        </div>`
+    } else if (duration == 4) {
+        return `
+        <div class="div-music-main-note div-music-main-note-semibreve">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
+        </div>`
+    } else {
+        return `
+        <div class="div-music-main-note div-music-main-note-subcrotchet">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+        </div>`
     }
 }
 
@@ -153,12 +183,7 @@ function collapseUpToDepth(arr, dep) {
 
 function crotchetExpand(arr) {
     if (arr[0] == undefined) {
-        return `
-        <div class="div-music-main-note div-music-main-note-subcrotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:40px;"></div>
-            <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
-        </div>
-        `
+        return getNoteHTML(0.5);
     } else {
         let subCrotchetText = ""
         let wrap = true
@@ -166,11 +191,7 @@ function crotchetExpand(arr) {
             if (item[0] != undefined) {
                 subCrotchetText += crotchetExpand(item)
             } else {
-                subCrotchetText += `
-                <div class="div-music-main-note div-music-main-note-subcrotchet">
-                    <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:40px;"></div>
-                    <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
-                </div>`
+                subCrotchetText += getNoteHTML(0.5);
                 wrap = false
             }
         }
@@ -178,7 +199,7 @@ function crotchetExpand(arr) {
             return `
             <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
                 ${subCrotchetText}
-                <div class="div-music-main-note-subcrotchetbeam" style="top:40px;"></div>
+                <div class="div-music-main-note-subcrotchetbeam" style="top:30px;"></div>
             </div>`
         } else {
             return subCrotchetText
@@ -195,32 +216,16 @@ function showMusic(music) {
     for (let note of collapsedBars) {
 
         if (note == 1) {
-            notes += `
-            <div class="div-music-main-note div-music-main-note-crotchet">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:40px;"></div>
-                <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
-            </div>`
+            notes += getNoteHTML(1);
             totalDuration += 1;
         } else if (note == 2) {
-            notes += `
-            <div class="div-music-main-note div-music-main-note-minim">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:40px;"></div>
-                <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
-            </div>`
+            notes += getNoteHTML(2);
             totalDuration += 2;
         } else if (note == 3) {
-            notes += `
-            <div class="div-music-main-note div-music-main-note-minim">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:40px;"></div>
-                <div class="div-music-main-note-notestemdown" style="top:40px;"></div>
-                <div class="div-music-main-note-dot" style="top:40px;"></div>
-            </div>`
+            notes += getNoteHTML(3);
             totalDuration += 3;
         } else if (note == 4) {
-            notes += `
-            <div class="div-music-main-note div-music-main-note-semibreve">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:40px;"></div>
-            </div>`
+            notes += getNoteHTML(4);
             totalDuration += 4;
         } else {
             notes += `
@@ -262,7 +267,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [4, 4, 4, 1], // Time sig, bars, anacrusis duration
+    metre: [3, 4, 16, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,

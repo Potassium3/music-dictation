@@ -45,7 +45,8 @@ h2 {
     max-width: calc(100% - 40px);
     position: relative;
     margin: auto;
-    overflow: hidden;
+    margin-top: 20px;
+    overflow-y: hidden;
     overflow-x: auto;
     scrollbar-width: 0;
 }
@@ -128,12 +129,12 @@ h2 {
 
 .div-music-main-note-minim {
     flex-grow: 2;
-    min-width: 12px;
+    min-width: 30px;
 }
 
 .div-music-main-note-semibreve {
     flex-grow: 4;
-    min-width: 12px;
+    min-width: 40px;
 }
 
 .div-music-main-note-cont {
@@ -175,6 +176,15 @@ h2 {
     width: 12px;
     height: 38px;
     border-left: 2px solid var(--textwhite);
+    position: absolute;
+    top: 25px; /* JS */
+}
+
+.div-music-main-note-notestemup {
+    transform: translateY(5.5px) translateY(-100%); /* All transforms are optical. */
+    width: 12px;
+    height: 38px;
+    border-right: 2px solid var(--textwhite);
     position: absolute;
     top: 25px; /* JS */
 }
@@ -228,28 +238,43 @@ h2 {
 .div-keyboard {
     display: flex;
     margin: auto;
-    width: fit-content;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    width: calc(100% - 40px);
     height: fit-content;
     flex-direction: row;
-    gap: 10px;
+    gap: 5px;
+}
+
+.div-keyboard>*:not(:first-child) {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.div-keyboard>*:not(:last-child) {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 button {
     display: block;
-    width: 40px;
+    min-width: 40px;
     height: 40px;
     border: none;
     background-color: var(--lightblue);
     border-radius: 10px;
     position: relative;
-    padding: 0;
+    padding: 0 5px;
     overflow: hidden;
     cursor: pointer;
     color: var(--textwhite)
 }
 
-button:hover {
+button:hover,
+button:focus {
     --textwhite: var(--textyellow);
+    outline: 2px solid var(--textyellow);
 }
 
 .icon-semibreve-head,
