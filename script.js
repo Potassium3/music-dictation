@@ -103,6 +103,7 @@ function generateMusic(details) {
     for (let bar of barDurations) {
         barsToReturn.push(recursiveGenerate(details, duration=bar));
     }
+    console.log(JSON.stringify(barsToReturn))
     return {
         metre: details.metre,
         bars: barsToReturn,
@@ -142,15 +143,10 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
             <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
         </div>`
     } else {
-        /*return `
-        <div class="div-music-main-note div-music-main-note-subcrotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
-        </div>`*/
         return `
         <div class="div-music-main-note div-music-main-note-subcrotchet">
             <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
+            <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
         </div>`
     }
 }
@@ -172,7 +168,7 @@ function depthSum(arr) {
 function collapseUpToDepth(arr, dep) {
     let newarr = [];
     for (let item of arr) {
-        if (item[0] != undefined && depthSum(item) > 1) {
+        if (item.length != 1 && depthSum(item) > 1) {
             // item is an array
             let subitems = collapseUpToDepth(item, dep-1);
             for (let subitem of subitems) {
@@ -187,13 +183,15 @@ function collapseUpToDepth(arr, dep) {
 }
 
 function crotchetExpand(arr) {
-    if (arr[0] == undefined) {
+    if (arr.length == 1) {
+        // Number
         return getNoteHTML(0.5);
     } else {
         let subCrotchetText = ""
         let wrap = true
         for (let item of arr) {
-            if (item[0] != undefined) {
+            if (item.length != 1) {
+                // Array
                 subCrotchetText += crotchetExpand(item)
             } else {
                 subCrotchetText += getNoteHTML(0.5);
@@ -204,7 +202,7 @@ function crotchetExpand(arr) {
             return `
             <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
                 ${subCrotchetText}
-                <div class="div-music-main-note-subcrotchetbeamup"></div>
+                <div class="div-music-main-note-subcrotchetbeam" style="top:30px;"></div>
             </div>`
         } else {
             return subCrotchetText
@@ -285,17 +283,4 @@ let detailsForMusic = {
 
 generateAndShowMusic(detailsForMusic);
 
-let notes = [
-    new Audio("sounds/af.wav"),
-    new Audio("sounds/a.wav"),
-    new Audio("sounds/bf.wav"),
-    new Audio("sounds/b.wav"),
-    new Audio("sounds/c.wav"),
-    new Audio("sounds/df.wav"),
-    new Audio("sounds/d.wav"),
-    new Audio("sounds/ef.wav"),
-    new Audio("sounds/e.wav"),
-    new Audio("sounds/f.wav"),
-    new Audio("sounds/gf.wav"),
-    new Audio("sounds/g.wav"),
-];
+let note = new Audio("sounds/a.wav");
