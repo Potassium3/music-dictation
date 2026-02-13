@@ -23,7 +23,7 @@ const melodyLevels = {
     7: "All key signatures",
     8: "Varied tempo",
     9: "Other clefs",
-    10: "",
+    10: "Dynamics?!",
 }
 
 /*
@@ -82,7 +82,7 @@ function recursiveGenerate(details, duration, depth=0) {
         // Base case
         return {
             duration: duration,
-            pitch: Math.floor(Math.random()*5),
+            pitch: Math.floor(Math.random()*5)+5,
         }
     }
 }
@@ -145,16 +145,19 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
             <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
         </div>`
     } else {
-        /*return `
-        <div class="div-music-main-note div-music-main-note-subcrotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
-        </div>`*/
-        return `
-        <div class="div-music-main-note div-music-main-note-subcrotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
-        </div>`
+        if (stemdown) {
+            return `
+            <div class="div-music-main-note div-music-main-note-subcrotchet">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+                <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+            </div>`
+        } else {
+            return `
+            <div class="div-music-main-note div-music-main-note-subcrotchet">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+                <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
+            </div>`
+        }
     }
 }
 
@@ -170,6 +173,24 @@ function depthSum(arr) {
         }
     }
     return total;
+}
+
+function depthAveragePitch(arr) {
+    let total = 0;
+    let count = 0;
+    for (let item of arr) {
+        if (item.length == 2) {
+            // item is an array
+            let ret = depthAveragePitch(item);
+            total += ret[0]
+            count += ret[1]
+        } else {
+            // item is a number
+            total += item.pitch;
+            count++;
+        }
+    }
+    return [total, count];
 }
 
 function collapseUpToDepth(arr, dep) {
@@ -189,31 +210,26 @@ function collapseUpToDepth(arr, dep) {
     return newarr;
 }
 
-function crotchetExpand(arr) {
-    console.log(arr)
-    console.log(typeof arr)
+function crotchetExpand(arr, beamup=false) {
+    let beamtext = beamup ? "up" : "down";
     if (arr.length != 2) {
         // Single note
-        return getNoteHTML(0.5, arr.pitch);
+        return getNoteHTML(0.5, beamup?1:8);
     } else {
         let subCrotchetText = ""
         for (let item of arr) {
             if (item.length == 2) {
                 // Array
-                subCrotchetText += crotchetExpand(item);
+                subCrotchetText += crotchetExpand(item, beamup);
             } else {
-                subCrotchetText += getNoteHTML(0.5, item.pitch);
+                subCrotchetText += getNoteHTML(0.5, beamup?1:8);
             }
         }
-        if (true) {
-            return `
-            <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
-                ${subCrotchetText}
-                <div class="div-music-main-note-subcrotchetbeam div-music-main-note-subcrotchetbeamdown"></div>
-            </div>`
-        } else {
-            return subCrotchetText
-        }
+        return `
+        <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestem${beamtext}">
+            ${subCrotchetText}
+            <div class="div-music-main-note-subcrotchetbeam div-music-main-note-subcrotchetbeam${beamtext}"></div>
+        </div>`
     }
 }
 
@@ -238,9 +254,14 @@ function showMusic(music) {
             notes += getNoteHTML(4);
             totalDuration += 4;
         } else {
+            let ret = depthAveragePitch(note);
+            console.log(ret)
+            let averagePitch = ret[0]/ret[1];
+            let beamup = averagePitch > 7;
+            console.log(averagePitch);
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">
-                ${crotchetExpand(note)}
+                ${crotchetExpand(note, beamup)}
             </div>`
             totalDuration += 1;
         }
