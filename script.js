@@ -194,7 +194,7 @@ function crotchetExpand(arr) {
     console.log(typeof arr)
     if (arr.length != 2) {
         // Single note
-        return getNoteHTML(0.5);
+        return getNoteHTML(0.5, arr.pitch);
     } else {
         let subCrotchetText = ""
         for (let item of arr) {
@@ -202,7 +202,7 @@ function crotchetExpand(arr) {
                 // Array
                 subCrotchetText += crotchetExpand(item);
             } else {
-                subCrotchetText += getNoteHTML(0.5);
+                subCrotchetText += getNoteHTML(0.5, item.pitch);
             }
         }
         if (true) {

@@ -217,7 +217,7 @@ h2 {
     background-color: white;
 }
 
-.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeam {
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
     transform: translateY(5.5px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
@@ -226,7 +226,7 @@ h2 {
     top: 25px; /* JS */
 }
 
-.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeam {
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
     transform: translateY(-1px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
