@@ -258,6 +258,7 @@ function showMusic(music) {
             console.log(ret)
             let averagePitch = ret[0]/ret[1];
             let beamup = averagePitch > 7;
+            console.log("BEAMUP:"+beamup)
             console.log(averagePitch);
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">

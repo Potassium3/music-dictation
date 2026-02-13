@@ -235,6 +235,24 @@ h2 {
     top: 25px; /* JS */
 }
 
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
+    transform: translateY(-1px) translateX(11px); /* All transforms are optical. */
+    width: calc(100% - 12px);
+    height: 38px;
+    border-bottom: 5px solid var(--textwhite);
+    position: absolute;
+    top: -35px; /* JS */
+}
+
+.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
+    transform: translateY(5.5px) translateX(11px); /* All transforms are optical. */
+    width: calc(100% - 12px);
+    height: 38px;
+    border-bottom: 5px solid var(--textwhite);
+    position: absolute;
+    top: -35px; /* JS */
+}
+
 .div-music-main-note-subcrotchetcont {
     display: flex;
     position: relative;
