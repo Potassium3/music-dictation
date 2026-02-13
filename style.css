@@ -157,6 +157,7 @@ h2 {
 .div-music-main-note-cont {
     flex-grow: 1;
     min-width: 60px;
+    background-color: #ffffff44;
 }
 
 .div-music-main-note-notehead {
@@ -241,6 +242,7 @@ h2 {
     gap: 2px;
     justify-content: space-between;
     height: 100%;
+    background-color: #ffffff44;
 }
 
 .div-music-main-cursor {

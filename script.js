@@ -80,7 +80,10 @@ function recursiveGenerate(details, duration, depth=0) {
         return re
     } else {
         // Base case
-        return [duration]
+        return {
+            duration: duration,
+            pitch: Math.floor(Math.random()*5),
+        }
     }
 }
 
@@ -103,7 +106,6 @@ function generateMusic(details) {
     for (let bar of barDurations) {
         barsToReturn.push(recursiveGenerate(details, duration=bar));
     }
-    console.log(JSON.stringify(barsToReturn))
     return {
         metre: details.metre,
         bars: barsToReturn,
@@ -143,10 +145,15 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
             <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
         </div>`
     } else {
-        return `
+        /*return `
         <div class="div-music-main-note div-music-main-note-subcrotchet">
             <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
             <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+        </div>`*/
+        return `
+        <div class="div-music-main-note div-music-main-note-subcrotchet">
+            <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+            <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
         </div>`
     }
 }
@@ -154,12 +161,12 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
 function depthSum(arr) {
     let total = 0;
     for (let item of arr) {
-        if (item[0] != undefined) {
+        if (item.length == 2) {
             // item is an array
             total += depthSum(item);
         } else {
             // item is a number
-            total += item
+            total += item.duration;
         }
     }
     return total;
@@ -168,14 +175,14 @@ function depthSum(arr) {
 function collapseUpToDepth(arr, dep) {
     let newarr = [];
     for (let item of arr) {
-        if (item.length != 1 && depthSum(item) > 1) {
+        if (item[0] != undefined && depthSum(item) > 1) {
             // item is an array
             let subitems = collapseUpToDepth(item, dep-1);
             for (let subitem of subitems) {
                 newarr.push(subitem);
             }
         } else {
-            // item is a number
+            // item is an object
             newarr.push(item);
         }
     }
@@ -183,26 +190,26 @@ function collapseUpToDepth(arr, dep) {
 }
 
 function crotchetExpand(arr) {
-    if (arr.length == 1) {
-        // Number
+    console.log(arr)
+    console.log(typeof arr)
+    if (arr.length != 2) {
+        // Single note
         return getNoteHTML(0.5);
     } else {
         let subCrotchetText = ""
-        let wrap = true
         for (let item of arr) {
-            if (item.length != 1) {
+            if (item.length == 2) {
                 // Array
-                subCrotchetText += crotchetExpand(item)
+                subCrotchetText += crotchetExpand(item);
             } else {
                 subCrotchetText += getNoteHTML(0.5);
-                wrap = false
             }
         }
-        if (wrap) {
+        if (true) {
             return `
             <div class="div-music-main-note-subcrotchetcont div-music-main-note-subcrotchetcont-notestemdown">
                 ${subCrotchetText}
-                <div class="div-music-main-note-subcrotchetbeam" style="top:30px;"></div>
+                <div class="div-music-main-note-subcrotchetbeam div-music-main-note-subcrotchetbeamdown"></div>
             </div>`
         } else {
             return subCrotchetText
@@ -218,16 +225,16 @@ function showMusic(music) {
     let totalDuration = 0;
     for (let note of collapsedBars) {
 
-        if (note == 1) {
+        if (note.duration == 1) {
             notes += getNoteHTML(1);
             totalDuration += 1;
-        } else if (note == 2) {
+        } else if (note.duration == 2) {
             notes += getNoteHTML(2);
             totalDuration += 2;
-        } else if (note == 3) {
+        } else if (note.duration == 3) {
             notes += getNoteHTML(3);
             totalDuration += 3;
-        } else if (note == 4) {
+        } else if (note.duration == 4) {
             notes += getNoteHTML(4);
             totalDuration += 4;
         } else {
@@ -270,6 +277,7 @@ function showMusic(music) {
 
 function generateAndShowMusic(details) {
     let music = generateMusic(details);
+    console.log(music);
     showMusic(music);//{'metre':[4,4,2,0],'bars':[[[[[0.5],[0.5]],[1]],[2]],[[[1],[[0.5],[0.5]]],[[[0.5],[0.5]],[[0.5],[0.5]]]]]});
 }
 
@@ -283,4 +291,17 @@ let detailsForMusic = {
 
 generateAndShowMusic(detailsForMusic);
 
-let note = new Audio("sounds/a.wav");
+let notes = [
+    new Audio("sounds/af.wav"),
+    new Audio("sounds/a.wav"),
+    new Audio("sounds/bf.wav"),
+    new Audio("sounds/b.wav"),
+    new Audio("sounds/c.wav"),
+    new Audio("sounds/df.wav"),
+    new Audio("sounds/d.wav"),
+    new Audio("sounds/ef.wav"),
+    new Audio("sounds/e.wav"),
+    new Audio("sounds/f.wav"),
+    new Audio("sounds/gf.wav"),
+    new Audio("sounds/g.wav"),
+];
