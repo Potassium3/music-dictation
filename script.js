@@ -82,7 +82,7 @@ function recursiveGenerate(details, duration, depth=0) {
         // Base case
         return {
             duration: duration,
-            pitch: Math.floor(Math.random()*5)+5,
+            pitch: Math.floor(Math.random()*5)+4,
         }
     }
 }
@@ -112,8 +112,8 @@ function generateMusic(details) {
     }
 }
 
-function getNoteHTML(duration, pitch=8, articulation=0) {
-    pitch = Math.floor(Math.random()*6+5);
+function getNoteHTML(duration, pitch=8, forceup=false, forcedown=false) {
+    //pitch = Math.floor(Math.random()*6+5);
 
     let top = pitch*-5+65;
     let stemdown = pitch >= 7;
@@ -145,13 +145,15 @@ function getNoteHTML(duration, pitch=8, articulation=0) {
             <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
         </div>`
     } else {
-        if (stemdown) {
+        if ((stemdown || forcedown) && !forceup) {
+            console.log("SUBCROTCHETDOWN")
             return `
             <div class="div-music-main-note div-music-main-note-subcrotchet">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
                 <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
             </div>`
         } else {
+            console.log("SUBCROTCHETUP")
             return `
             <div class="div-music-main-note div-music-main-note-subcrotchet">
                 <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
@@ -214,7 +216,7 @@ function crotchetExpand(arr, beamup=false) {
     let beamtext = beamup ? "up" : "down";
     if (arr.length != 2) {
         // Single note
-        return getNoteHTML(0.5, beamup?1:8);
+        return getNoteHTML(0.5, arr[0].pitch, beamup, !beamup);
     } else {
         let subCrotchetText = ""
         for (let item of arr) {
@@ -222,7 +224,7 @@ function crotchetExpand(arr, beamup=false) {
                 // Array
                 subCrotchetText += crotchetExpand(item, beamup);
             } else {
-                subCrotchetText += getNoteHTML(0.5, beamup?1:8);
+                subCrotchetText += getNoteHTML(0.5, arr[0].pitch, beamup, !beamup);
             }
         }
         return `
@@ -242,22 +244,22 @@ function showMusic(music) {
     for (let note of collapsedBars) {
 
         if (note.duration == 1) {
-            notes += getNoteHTML(1);
+            notes += getNoteHTML(1, note.pitch);
             totalDuration += 1;
         } else if (note.duration == 2) {
-            notes += getNoteHTML(2);
+            notes += getNoteHTML(2, note.pitch);
             totalDuration += 2;
         } else if (note.duration == 3) {
-            notes += getNoteHTML(3);
+            notes += getNoteHTML(3, note.pitch);
             totalDuration += 3;
         } else if (note.duration == 4) {
-            notes += getNoteHTML(4);
+            notes += getNoteHTML(4, note.pitch);
             totalDuration += 4;
         } else {
             let ret = depthAveragePitch(note);
             console.log(ret)
             let averagePitch = ret[0]/ret[1];
-            let beamup = averagePitch > 7;
+            let beamup = averagePitch < 7;
             console.log("BEAMUP:"+beamup)
             console.log(averagePitch);
             notes += `
