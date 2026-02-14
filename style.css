@@ -31,10 +31,24 @@ body {
 
 h1, h2 {
     text-align: center;
+    margin: 0;
+    line-height: 50px;
+    padding: 20px 0;
 }
 
 h2 {
     color: var(--textyellow);
+}
+
+header {
+    background-color: var(--lightblue);
+    height: 90px;
+}
+
+main {
+    background-color: var(--darkblue);
+    height: calc(100% - 90px);
+    overflow: auto;
 }
 
 /* Music */
@@ -135,7 +149,7 @@ h2 {
 }
 
 .div-music-main-note {
-    width: 12px;
+    min-width: 12px;
     position: relative;
 }
 
@@ -157,7 +171,6 @@ h2 {
 .div-music-main-note-cont {
     flex-grow: 1;
     min-width: 60px;
-    background-color: #ffffff44;
 }
 
 .div-music-main-note-notehead {
@@ -190,7 +203,7 @@ h2 {
 }
 
 .div-music-main-note-notestemdown {
-    transform: translateY(5.5px); /* All transforms are optical. */
+    transform: translateY(5px); /* All transforms are optical. */
     width: 12px;
     height: 38px;
     border-left: 2px solid var(--textwhite);
@@ -199,7 +212,7 @@ h2 {
 }
 
 .div-music-main-note-notestemup {
-    transform: translateY(5.5px) translateY(-100%); /* All transforms are optical. */
+    transform: translateY(5px) translateY(-100%); /* All transforms are optical. */
     width: 12px;
     height: 38px;
     border-right: 2px solid var(--textwhite);
@@ -218,21 +231,21 @@ h2 {
 }
 
 .div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
-    transform: translateY(5.5px); /* All transforms are optical. */
+    transform: translateY(4px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
     border-bottom: 5px solid var(--textwhite);
     position: absolute;
-    top: 25px; /* JS */
+    top: 31px; /* JS */
 }
 
 .div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamdown {
-    transform: translateY(-1px); /* All transforms are optical. */
+    transform: translateY(-2px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
     border-bottom: 5px solid var(--textwhite);
     position: absolute;
-    top: 25px; /* JS */
+    top: 31px; /* JS */
 }
 
 .div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
@@ -245,7 +258,7 @@ h2 {
 }
 
 .div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetcont>.div-music-main-note-subcrotchetbeamup {
-    transform: translateY(5.5px) translateX(11px); /* All transforms are optical. */
+    transform: translateY(5px) translateX(11px); /* All transforms are optical. */
     width: calc(100% - 12px);
     height: 38px;
     border-bottom: 5px solid var(--textwhite);
@@ -260,7 +273,63 @@ h2 {
     gap: 2px;
     justify-content: space-between;
     height: 100%;
-    background-color: #ffffff44;
+}
+
+.div-music-main-rest {
+    width: 12px;
+    position: relative;
+}
+
+.div-music-main-rest-crotchet {
+    flex-grow: 1;
+    min-width: 12px;
+}
+
+.div-music-main-rest-minim {
+    flex-grow: 2;
+    min-width: 30px;
+}
+
+.div-music-main-rest-semibreve {
+    flex-grow: 4;
+    min-width: 40px;
+}
+
+.div-music-main-rest-symbol-crotchet {
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 35px;
+    aspect-ratio: 1;
+    transform: translateX(-11.5px);
+    clip-path: polygon(41% 0%, 60% 20%, 56% 26%, 53% 30%, 51% 36%, 51% 40%, 66% 64%, 61% 62%, 55% 63%, 50% 68%, 48% 77%, 48% 85%, 50% 90%, 54% 94%, 47% 94%, 41% 91%, 36% 85%, 35% 76%, 36% 69%, 42% 65%, 47% 62%, 52% 59%, 56% 59%, 39% 32%, 41% 28%, 43% 23%, 44% 18%, 44% 13%, 43% 8%, 42% 4%);
+}
+
+.div-music-main-rest-symbol-minim {
+    background-color: white;
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    top: 30px;
+}
+
+.div-music-main-rest-symbol-semibreve {
+    background-color: white;
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    top: 25px;
+    left: calc(50% - 5px);
+}
+
+.div-music-main-rest-dot {
+    transform: translateY(1px) translateX(15px); /* All transforms are optical. */
+    width: 3px;
+    height: 3px;
+    border-radius: 100%;
+    position: absolute;
+    top: 28px; /* JS */
+    background-color: white;
 }
 
 .div-music-main-cursor {

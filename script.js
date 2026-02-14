@@ -83,6 +83,7 @@ function recursiveGenerate(details, duration, depth=0) {
         return {
             duration: duration,
             pitch: Math.floor(Math.random()*5)+4,
+            rest: Math.random()>0.5,
         }
     }
 }
@@ -112,53 +113,80 @@ function generateMusic(details) {
     }
 }
 
-function getNoteHTML(duration, pitch=8, forceup=false, forcedown=false) {
+function getNoteHTML(duration, pitch=8, forceup=false, forcedown=false, rest=false) {
     //pitch = Math.floor(Math.random()*6+5);
 
     let top = pitch*-5+65;
     let stemdown = pitch >= 7;
     let stemtext = stemdown ? "down" : "up";
-
-    if (duration == 1) {
-        return `
-        <div class="div-music-main-note div-music-main-note-crotchet">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
-        </div>
-        `
-    } else if (duration == 2) {
-        return `
-        <div class="div-music-main-note div-music-main-note-minim">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
-        </div>`
-    } else if (duration == 3) {
-        return `
-        <div class="div-music-main-note div-music-main-note-minim">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
-            <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
-            <div class="div-music-main-note-dot" style="top:${top}px;"></div>
-        </div>`
-    } else if (duration == 4) {
-        return `
-        <div class="div-music-main-note div-music-main-note-semibreve">
-            <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
-        </div>`
-    } else {
-        if ((stemdown || forcedown) && !forceup) {
-            console.log("SUBCROTCHETDOWN")
+    if (!rest) {
+        // note
+        if (duration == 1) {
             return `
-            <div class="div-music-main-note div-music-main-note-subcrotchet">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-                <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+            <div class="div-music-main-note div-music-main-note-crotchet">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-crotchet" style="top:${top}px;"></div>
+                <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
+            </div>
+            `
+        } else if (duration == 2) {
+            return `
+            <div class="div-music-main-note div-music-main-note-minim">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
+                <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
+            </div>`
+        } else if (duration == 3) {
+            return `
+            <div class="div-music-main-note div-music-main-note-minim">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-minim" style="top:${top}px;"></div>
+                <div class="div-music-main-note-notestem${stemtext}" style="top:${top}px;"></div>
+                <div class="div-music-main-note-dot" style="top:${top}px;"></div>
+            </div>`
+        } else if (duration == 4) {
+            return `
+            <div class="div-music-main-note div-music-main-note-semibreve">
+                <div class="div-music-main-note-notehead div-music-main-note-notehead-semibreve" style="top:${top}px;"></div>
             </div>`
         } else {
-            console.log("SUBCROTCHETUP")
+            if ((stemdown || forcedown) && !forceup) {
+                return `
+                <div class="div-music-main-note div-music-main-note-subcrotchet">
+                    <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+                    <div class="div-music-main-note-notestemdown" style="top:${top}px;height:${68-top}px"></div>
+                </div>`
+            } else {
+                return `
+                <div class="div-music-main-note div-music-main-note-subcrotchet">
+                    <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
+                    <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8}px"></div>
+                </div>`
+            }
+        }
+    } else {
+        // rest
+        if (duration == 1) {
             return `
-            <div class="div-music-main-note div-music-main-note-subcrotchet">
-                <div class="div-music-main-note-notehead div-music-main-note-notehead-subcrotchet" style="top:${top}px;"></div>
-                <div class="div-music-main-note-notestemup" style="top:${top}px;height:${top+8.5}px"></div>
+            <div class="div-music-main-note div-music-main-rest-crotchet">
+                <div class="div-music-main-rest-symbol div-music-main-rest-symbol-crotchet"></div>
+            </div>
+            `
+        } else if (duration == 2) {
+            return `
+            <div class="div-music-main-note div-music-main-rest-minim">
+                <div class="div-music-main-rest-symbol div-music-main-rest-symbol-minim"></div>
+            </div>
+            `
+        } else if (duration == 3) {
+            return `
+            <div class="div-music-main-note div-music-main-rest-minim">
+                <div class="div-music-main-rest-symbol div-music-main-rest-symbol-minim"></div>
+                <div class="div-music-main-rest-dot"></div>
             </div>`
+        } else if (duration == 4) {
+            return `
+            <div class="div-music-main-note div-music-main-rest-semibreve">
+                <div class="div-music-main-rest-symbol div-music-main-rest-symbol-semibreve"></div>
+            </div>
+            `
         }
     }
 }
@@ -188,7 +216,9 @@ function depthAveragePitch(arr) {
             count += ret[1]
         } else {
             // item is a number
-            total += item.pitch;
+            if (!item.rest) {
+                total += item.pitch;
+            }
             count++;
         }
     }
@@ -244,24 +274,21 @@ function showMusic(music) {
     for (let note of collapsedBars) {
 
         if (note.duration == 1) {
-            notes += getNoteHTML(1, note.pitch);
+            notes += getNoteHTML(1, note.pitch, false, false, note.rest);
             totalDuration += 1;
         } else if (note.duration == 2) {
-            notes += getNoteHTML(2, note.pitch);
+            notes += getNoteHTML(2, note.pitch, false, false, note.rest);
             totalDuration += 2;
         } else if (note.duration == 3) {
-            notes += getNoteHTML(3, note.pitch);
+            notes += getNoteHTML(3, note.pitch, false, false, note.rest);
             totalDuration += 3;
         } else if (note.duration == 4) {
-            notes += getNoteHTML(4, note.pitch);
+            notes += getNoteHTML(4, note.pitch, false, false, note.rest);
             totalDuration += 4;
         } else {
             let ret = depthAveragePitch(note);
-            console.log(ret)
             let averagePitch = ret[0]/ret[1];
             let beamup = averagePitch < 7;
-            console.log("BEAMUP:"+beamup)
-            console.log(averagePitch);
             notes += `
             <div class="div-music-main-note div-music-main-note-cont">
                 ${crotchetExpand(note, beamup)}
@@ -306,7 +333,7 @@ function generateAndShowMusic(details) {
 }
 
 let detailsForMusic = {
-    metre: [4, 4, 4, 0], // Time sig, bars, anacrusis duration
+    metre: [3, 4, 4, 0], // Time sig, bars, anacrusis duration
     dots: false,
     ties: false,
     rests: false,
